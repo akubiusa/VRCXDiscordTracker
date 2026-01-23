@@ -90,4 +90,6 @@
 6. PR 本文の崩れがないことを確認する。
 
 ## リポジトリ固有
-- 目的: VRCXDiscordTracker
+- 概要: The application posts information and members from VRCX database to Discord for instances in which they have participated.
+- CI 定義: `.github/workflows/` を参照
+- ライセンス: `LICENSE` を参照
