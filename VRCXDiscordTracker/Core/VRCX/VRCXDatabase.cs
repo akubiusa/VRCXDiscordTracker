@@ -21,10 +21,16 @@ internal class VRCXDatabase : IDisposable
     /// <param name="databasePath">VRCXのSQLiteデータベースのパス</param>
     public VRCXDatabase(string databasePath)
     {
+        // Use URI mode with read-only and nolock parameters to avoid write attempts
+        // This allows reading from a database that's actively being used by VRCX
+        // Convert Windows path to file URI format
+        var absolutePath = Path.GetFullPath(databasePath);
+        var uri = new Uri(absolutePath).AbsoluteUri;
+        
         var sqlConnStr = new SQLiteConnectionStringBuilder
         {
-            DataSource = databasePath,
-            ReadOnly = true,
+            DataSource = $"{uri}?mode=ro&nolock=1",
+            Uri = true,
         };
 
         _conn = new SQLiteConnection(sqlConnStr.ToString());
